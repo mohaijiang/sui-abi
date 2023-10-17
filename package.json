@@ -5,7 +5,7 @@
   "scripts": {
     "build": "npx tsc",
     "package": "pkg dist/index.js  --out-path=./bin",
-    "test": "npx ts-node src/index.ts --network testnet 0x7442d2370b67040d1d906d060ad94bc37a448154cfd322a81a4f599a6bb4e9a6"
+    "test": "npx ts-node src/index.ts --network testnet 0x28f5b526e48ee9948382dcf8ad80c8993bbdc1a62de18ea6a28945cb669fcfd9"
   },
   "bin": {
     "sui-abi": "bin/sui-abi.js"

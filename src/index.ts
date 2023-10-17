@@ -17,22 +17,31 @@ const address = program.args[0]
 console.log("address: ", address)
 console.log("")
 
-let promise1 = axios.post(
-    rpcUrl,
-    {"jsonrpc":"2.0","id":"2","method":"sui_getObject","params":[address,{"showType":true,"showContent":true,"showOwner":true,"showPreviousTransaction":true,"showStorageRebate":true,"showDisplay":true}]}
-)
-let promise2 = axios.post(
-    rpcUrl,
-    {"jsonrpc":"2.0","id":"4","method":"sui_getNormalizedMoveModule","params":[address,"color_object"]}
-)
 
-Promise.all([promise1,promise2]).then(results => {
-    const resp1 = results[0].data
-    const resp2 = results[1].data
 
-    resp1.result.data.content.disassembled = resp2.result.exposedFunctions
 
-    console.log(JSON.stringify(resp1))
-}).catch(err => {
-    console.log("err:", err)
-})
+
+
+async function  main() {
+    let resp1 = await axios.post(
+        rpcUrl,
+        {"jsonrpc":"2.0","id":"2","method":"sui_getObject","params":[address,{"showType":true,"showContent":true,"showOwner":true,"showPreviousTransaction":true,"showStorageRebate":true,"showDisplay":true}]}
+    )
+
+    let mainData = resp1.data
+
+    // console.log(JSON.stringify(mainData.result.data.content.disassembled))
+    for (const key in mainData.result.data.content.disassembled) {
+        const methodAbi = await axios.post(
+            rpcUrl,
+            {"jsonrpc":"2.0","id":"4","method":"sui_getNormalizedMoveModule","params":[address,key]}
+        )
+        mainData.result.data.content.disassembled[key] = methodAbi.data.result.exposedFunctions
+    }
+
+    console.log(JSON.stringify(mainData))
+
+
+}
+
+main().then()

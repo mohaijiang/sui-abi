@@ -1,0 +1,33 @@
+{
+  "name": "@mohaijiang/sui-abi",
+  "version": "1.0.1",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "package": "pkg dist/index.js  --out-path=./bin",
+    "test": "ts-node src/index.ts --network testnet 0x7442d2370b67040d1d906d060ad94bc37a448154cfd322a81a4f599a6bb4e9a6"
+  },
+  "bin": {
+    "sui-abi": "bin/sui-abi.js"
+  },
+  "author": "mohaijiang <mohaijiang110@163.com>",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohaijiang/sui-abi.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mohaijiang/sui-abi/issues"
+  },
+  "homepage": "https://github.com/mohaijiang/sui-abi#readme",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.5.1",
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.6",
+    "pkg": "^5.8.1",
+    "typescript": "^5.2.2"
+  }
+}
